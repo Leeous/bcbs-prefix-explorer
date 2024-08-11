@@ -1,0 +1,22 @@
+body {
+  background-color: #57a9f2;
+  color: white;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  text-align: center;
+
+}
+
+form {
+  text-align: center;
+}
+
+#searchText {
+  border: solid 3px #3888cf;
+  text-transform: uppercase;
+  text-align: center;
+  font-weight: bold;
+}
+
+a {
+  color: white;
+}
