@@ -1,10 +1,15 @@
+import { Link } from 'react-router-dom'
 import '../App.css'
+import { NavLink } from 'react-router-dom'
 
 function Navigation() {
     return(
-        <div id='navigation'>
-            <h3>BCBS Prefix Explorer</h3>
-        </div>
+        <nav id='navigation'>
+            <ul>
+                <li><NavLink to="/">Search<br/>&#x1F50E;</NavLink></li>
+                <li><NavLink to="/settings">Settings<br/>&#9874;</NavLink></li>
+            </ul>
+        </nav>
     )
 }
 

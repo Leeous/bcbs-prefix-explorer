@@ -1,39 +1,65 @@
 body {
-  background-color: #57a9f2;
-  color: white;
-  font-family: Verdana, Geneva, Tahoma, sans-serif;
-  text-align: center;
-  min-width: 300px;
-  min-height: 300px;
+	background-color: #57a9f2;
+	color: white;
+	font-family: Verdana, Geneva, Tahoma, sans-serif;
+	text-align: center;
+	min-width: 300px;
+	min-height: 300px;
 }
 
 form {
-  text-align: center;
+	text-align: center;
 }
 
 a {
-  color: white;
+	color: white;
 }
 
-#navigation {
+#navigation ul {
+	display: flex;
+	list-style: none;
+	justify-content: center;
+	position: fixed;
+	width: 100%;
+	padding-left: 0;
+	bottom: 0;
+	right: 0;
+	left: 0;
 }
 
-#navigation button {
-  display: block;
+#navigation ul {
+	list-style: none;
 }
 
-#navigation h3 {
-  display: inline-block;
+#navigation li {
+	width: 100%;
+}
+
+#navigation li a {
+	display: inline-block;
+	background-color: #316ca0;
+	font-weight: bold;
+	width: 100%;
+	height: 100%;
+	padding: 10px;
+	text-decoration: none;
+}
+
+#navigation li a.active-tab {
+	background-color: #3c7db6;
+}
+
+#navigation li a:hover {
+	background-color: #3c7db6;
 }
 
 #settings {
-  display: none;
+	display: none;
 }
 
-
 #searchText {
-  border: solid 3px #3888cf;
-  text-transform: uppercase;
-  text-align: center;
-  font-weight: bold;
+	border: solid 3px #3888cf;
+	text-transform: uppercase;
+	text-align: center;
+	font-weight: bold;
 }

@@ -4,6 +4,10 @@ function Search() {
     function searchDB(e) {
         let searchValue = e.toLocaleUpperCase();
         // Ensure we wait for the full prefix to attempt a match
+        // Loop over JSON to find prefix TODO: add carrier, payer ID, and number search
+        // Clear search box if searchText length is < 3. Might change this behaviour.
+        if (searchValue.length < 3) { searchBox.innerHTML = ""; }
+
         if (searchValue.length == 3) {
             for (let i = 0; i < BCBSDB.length; i++) {
                 let prefixValue = BCBSDB[i]["prefix"];
@@ -14,10 +18,8 @@ function Search() {
                     // Display carrier name, if it exists
                     if (BCBSDB[i].carrier != "Prefix Not in Use") {
                         searchBox.insertAdjacentHTML('beforeend', `<p>It seems like prefix <b>${BCBSDB[i].prefix}</b> is for carrier <b>${BCBSDB[i].carrier}</b>.</p>`);
-                        foundHit = true;
                     } else {
                         searchBox.insertAdjacentHTML('beforeend', `<p>It seems like prefix <b>${BCBSDB[i].prefix}</b> is either no longer in use or was never used by a BCBS carrier.</p>`);
-                        foundHit = true;
                     }
 
                     // Display carrier website, if it exists
@@ -28,7 +30,7 @@ function Search() {
                     // Display carrier benefits phone number, if it exists
                     if (BCBSDB[i].benefits_phone_number) {
                         try {
-                            searchBox.insertAdjacentHTML('beforeend', `<p>Phone Number (benefits): ${"<span>" + JSON.parse(BCBSDB[i].benefits_phone_number).phone_numbers.join(', ') + "</span>"}</p>`);
+                            searchBox.insertAdjacentHTML('beforeend', `<p>Phone Number (benefits): ${"<br/><span>" + JSON.parse(BCBSDB[i].benefits_phone_number).phone_numbers.join(',<br/>') + "</span>"}</p>`);
                             return;
                         } catch (e) {
                             console.log("Carrier has a single phone number for benefits.")
