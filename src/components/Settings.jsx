@@ -1,6 +1,13 @@
 function Settings() {
     return (
-        <p>oops</p>
+        <>
+            <details className="settings-cat">
+                <summary>Appearance</summary>
+                
+            </details>
+
+            <button className="button-normal">Reset all</button>
+        </>
     );
 }
 
