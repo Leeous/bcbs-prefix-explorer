@@ -60,7 +60,11 @@ a {
 }
 
 .button-normal {
-	border: solid 3px #3888cf;
+	border: solid 3px #185386;
+	background-color: #3888cf;
+	color: white;
+	padding: 5px 10px;
+	cursor: pointer;
 }
 
 #searchText {
