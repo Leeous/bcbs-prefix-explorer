@@ -126,7 +126,7 @@ function Search() {
                     <input onClick={(e) => changeSearchType(e, "carrier")} type="button" value="Carrier" />
                     {/* <input onClick={(e) => changeSearchType(e, "payer_id")} type="button" value="Payer ID"  /> */}
                 </div>
-                <input onChange={(e) => searchDB(e.target.value)} autoComplete='off' maxLength="3" type="text" size={18} placeholder="Search for a prefix..." name="Prefix" className="button-normal" id="searchText" />
+                <input onChange={(e) => searchDB(e.target.value)} onKeyDown={(e) => {if (e.key == "Enter") {e.preventDefault();}}} autoComplete='off' maxLength="3" type="text" size={18} placeholder="Search for a prefix..." name="Prefix" id="searchText" />
 
                 <div id="searchBox"></div>
                 {/* <input type="submit" value="Go" onClick={searchDB()} onSubmit={() => searchDB()} hidden /> */}

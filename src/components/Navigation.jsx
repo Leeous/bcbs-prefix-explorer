@@ -1,12 +1,11 @@
 import '../App.css'
-import { NavLink } from 'react-router-dom'
 
 function Navigation() {
     return(
         <nav id="navigation">
             <ul>
-                <li><NavLink to="/">Search<br/>&#x1F50E;</NavLink></li>
-                <li><NavLink to="/settings">Settings<br/>&#9874;</NavLink></li>
+                <li><a onClick={() => {window.location.hash = "search"; window.location.reload()}} href="#search">Search<br/>&#x1F50E;</a></li>
+                <li><a onClick={() => {window.location.hash = "settings"; window.location.reload()}} href="#settings">Settings<br/>&#9874;</a></li>
             </ul>
         </nav>
     )
