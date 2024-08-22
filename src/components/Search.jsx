@@ -1,4 +1,5 @@
 import BCBSDB from '../assets/bcbs_db.json';
+// By default, we will want to search by prefix
 let searchType = "prefix";
 
 function changeSearchType(event, type) {
@@ -6,7 +7,6 @@ function changeSearchType(event, type) {
     // Cancel search type switch if it matches attempted value
     if (searchType == type) { return }
     searchType = type;
-    console.log(searchType, event);
 
     // Change active tab class
     document.querySelector(".searchType .active").classList = "";
@@ -15,11 +15,14 @@ function changeSearchType(event, type) {
     // Set search type
     if (type == "carrier") {
         searchTextElement.setAttribute("placeholder", "Search for a carrier...");
-        searchTextElement.removeAttribute("maxlength");
-
+        searchTextElement.removeAttribute("maxlength", 3);
+        searchTextElement.style.textTransform = "none";
+        searchTextElement.style.fontWeight = "500";
     } else if (type == "prefix") {
         searchTextElement.setAttribute("placeholder", "Search for a prefix...");
         searchTextElement.setAttribute("maxlength", 3);
+        searchTextElement.style.textTransform = "uppercase";
+        searchTextElement.style.fontWeight = "bold";
     } 
     
     // TODO: add payer IDs to DB
@@ -35,6 +38,9 @@ function changeSearchType(event, type) {
 
 function Search() {
     function searchDB(e) {
+        const searchTextElement = document.querySelector("#searchText");
+
+
         // Set search value to lower case to ignore casing
         let searchValue = e.toLocaleLowerCase(); 
 
@@ -80,7 +86,6 @@ function Search() {
                     return;
                 }
 
-
                 // Display carrier name, if it exists
                 if (BCBSDB[i].carrier != "Prefix Not in Use") {
                     searchBox.insertAdjacentHTML('beforeend', `<p>It seems like prefix <b>${BCBSDB[i].prefix}</b> is for carrier <b>${BCBSDB[i].carrier}</b>.</p>`);
@@ -97,22 +102,20 @@ function Search() {
                 if (BCBSDB[i].benefits_phone_number) {
                     try {
                         searchBox.insertAdjacentHTML('beforeend', `<p>Phone Number (benefits): ${"<br/><span>" + JSON.parse(BCBSDB[i].benefits_phone_number).phone_numbers.join('<br/>') + "</span>"}</p>`);
-                        return;
                     } catch (e) {
                         console.log("Carrier has a single phone number for benefits.")
+                        searchBox.insertAdjacentHTML('beforeend', `<p>Phone Number (benefits):<br/> ${BCBSDB[i].benefits_phone_number}</p>`);
                     }
-                    searchBox.insertAdjacentHTML('beforeend', `<p>Phone Number (benefits):<br/> ${BCBSDB[i].benefits_phone_number}</p>`);
                 }
             
                 // Display carrier claims phone number, if it exists
                 if (BCBSDB[i].claims_phone_number) {
                     try {
                         searchBox.insertAdjacentHTML('beforeend', `<p>Phone Number (claims): ${"<br/><span>" + JSON.parse(BCBSDB[i].claims_phone_number).phone_numbers.join('<br/>') + "</span>"}</p>`);
-                        return;
                     } catch (e) {
-                        console.log("Carrier has a single phone number for claims.")
+                        console.log("Carrier has a single phone number for claims.");
+                        searchBox.insertAdjacentHTML('beforeend', `<p>Phone Number (claims):<br/> ${BCBSDB[i].claims_phone_number}</p>`);
                     }
-                    searchBox.insertAdjacentHTML('beforeend', `<p>Phone Number (claims):<br/> ${BCBSDB[i].claims_phone_number}</p>`);
                 }
             }
         }
@@ -126,11 +129,12 @@ function Search() {
                     <input onClick={(e) => changeSearchType(e, "carrier")} type="button" value="Carrier" />
                     {/* <input onClick={(e) => changeSearchType(e, "payer_id")} type="button" value="Payer ID"  /> */}
                 </div>
-                <input onChange={(e) => searchDB(e.target.value)} onKeyDown={(e) => {if (e.key == "Enter") {e.preventDefault();}}} autoComplete='off' maxLength="3" type="text" size={18} placeholder="Search for a prefix..." name="Prefix" id="searchText" />
+                <input onChange={(e) => searchDB(e.target.value)} onKeyDown={(e) => {if (e.key == "Enter") {e.preventDefault();}}} autoComplete='off' type="text" maxLength={3} size={20} placeholder="Search for a prefix..." name="Prefix" id="searchText" />
 
                 <div id="searchBox"></div>
                 {/* <input type="submit" value="Go" onClick={searchDB()} onSubmit={() => searchDB()} hidden /> */}
             </form>
+            <a className="report-issue" href="https://cryptpad.fr/form/#/2/form/view/8MvvJD28sitW-FTNOJLY7YpELtdP-h58HhRq+2u0l5c/" target="_blank">Report</a>
         </>
     );
 }
